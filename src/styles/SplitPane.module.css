@@ -1,0 +1,21 @@
+.rootPane {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.leftPane {
+  overflow: auto;
+}
+
+.rightPane {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.divider {
+  height: 100%;
+  width: 5px;
+  cursor: col-resize;
+  background-color: #ccc;
+}

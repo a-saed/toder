@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  padding: 50px;
+  justify-content: center;
+  align-items: start;
+  height: 100%;
+  width: 100%;
+}
+
+.alertInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #ddd;
+}

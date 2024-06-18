@@ -1,0 +1,63 @@
+.task_list {
+  margin: 2rem 4rem;
+}
+
+.task_container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: #ddd;
+}
+
+.task_item {
+  width: 100%;
+  margin: 3px 10px;
+  padding: 10px 20px;
+  border: 1px solid #292929;
+  border-radius: 10px;
+  background-color: #1d1d1d;
+  cursor: pointer;
+  overflow: auto;
+}
+
+.selected_task {
+  border: 2px solid #2b9af569;
+}
+
+.drag_icon {
+  cursor: grab;
+  width: 22px;
+  color: #666;
+}
+.drag_icon:hover {
+  color: #999;
+}
+
+.task_name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task_desc {
+  display: block;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.add_task_alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  color: #ddd;
+}
