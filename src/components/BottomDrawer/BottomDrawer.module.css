@@ -1,0 +1,29 @@
+.root {
+  width: 18vw;
+  margin: 0 auto;
+  position: fixed;
+  background-color: #272626;
+  bottom: 0;
+  left: 50%;
+  padding: 10px;
+  transform: translateX(-50%);
+  box-shadow: 3px -3px 10px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.timerCircle {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: #ddd;
+  border: 8px solid #186ea8;
+}

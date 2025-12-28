@@ -7,7 +7,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { StrictModeDroppable } from "@/components/shared/StrictModeDroppable";
 import { Task } from "@/components/shared/Task";
 import styles from "@/styles/Task.module.css";
-import { getAllTasks } from "@/services/db.service";
 import { useTaskStore } from "@/store/task.store";
 import { isTruthy } from "@/utils/general.util";
 import { Box, Button, Typography } from "@mui/material";
@@ -53,7 +52,7 @@ export const TaskList = () => {
           {/*  show uncompleted tasks */}
           <DragDropContext onDragEnd={onDragEnd}>
             <StrictModeDroppable droppableId="droppable">
-              {(provided, snapshot) => (
+              {(provided) => (
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
@@ -65,7 +64,7 @@ export const TaskList = () => {
                       draggableId={item._id}
                       index={index}
                     >
-                      {(provided, snapshot) => (
+                      {(provided) => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}

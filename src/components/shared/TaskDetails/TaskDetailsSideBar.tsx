@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
 import styles from "@/styles/TaskDetails.module.css";
 import dayjs, { Dayjs } from "dayjs";
-import { Button, Divider, Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { DueDateSelector, PrioritySelector } from "@/components/Selectors";
 import { updateTask } from "@/services/db.service";
 

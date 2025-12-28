@@ -5,7 +5,7 @@ interface HotkeysStore {
   toggleMainDrawer: (open?: boolean) => void;
 }
 
-export const useHotkeysStore = create<HotkeysStore>()((set, get) => ({
+export const useHotkeysStore = create<HotkeysStore>()((set) => ({
   isMainDrawerOpen: false,
   toggleMainDrawer: (open) => {
     if (typeof open === "boolean") return set({ isMainDrawerOpen: open });

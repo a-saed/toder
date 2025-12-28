@@ -1,12 +1,11 @@
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import EventNoteIcon from "@mui/icons-material/EventNote";
-import MoreTimeIcon from "@mui/icons-material/MoreTime";
-import { NotesPanel, PomodorosPanel, SubTasksPanel } from "./TabPanels";
+import AttachmentIcon from "@mui/icons-material/Attachment";
+import { NotesPanel, AttachmentsPanel, SubTasksPanel } from "./TabPanels";
 
 type PanelItem = {
   id: string;
@@ -21,7 +20,7 @@ interface TabPanelProps {
 const panels: PanelItem[] = [
   { id: "subtasks", PanelComponent: <SubTasksPanel /> },
   { id: "notes", PanelComponent: <NotesPanel /> },
-  { id: "pomodoros", PanelComponent: <PomodorosPanel /> },
+  { id: "Attachments", PanelComponent: <AttachmentsPanel /> },
 ];
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -50,7 +49,7 @@ function a11yProps(index: number) {
 export default function TaskDetailsTabs() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -89,8 +88,8 @@ export default function TaskDetailsTabs() {
           />
           <Tab
             sx={{ textTransform: "none", fontSize: "0.8rem" }}
-            label="Pomodoros"
-            icon={<MoreTimeIcon sx={{ fontSize: "1.3rem" }} />}
+            label="Attachments"
+            icon={<AttachmentIcon sx={{ fontSize: "1.3rem" }} />}
             {...a11yProps(2)}
           />
         </Tabs>

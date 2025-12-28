@@ -10,7 +10,7 @@ type SideNavProps = {
   open: boolean;
 };
 
-export const SideNav = ({ open }: SideNavProps) => {
+export const SideNav = ({ open: _open }: SideNavProps) => {
   return (
     <div>
       <List>

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+// import { ReactNode } from "react";
 import {
   PaletteColorOptions,
   ThemeProvider,
@@ -7,6 +7,7 @@ import {
 import CssBaseline from "@mui/material/CssBaseline";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 const { palette } = createTheme();
 const { augmentColor } = palette;
 const createColor = (mainColor: string) =>
@@ -17,6 +18,8 @@ import { MainBar } from "@/components/AppBar";
 import { FabBtn } from "@/components/FabBtn";
 import { useHotkeysStore } from "@/store/hotkeys.store";
 import useHotkeys from "@/hooks/useHotkeys";
+import { BottomDrawer } from "../BottomDrawer";
+import "react-toastify/dist/ReactToastify.css";
 
 declare module "@mui/material/styles" {
   interface CustomPalette {
@@ -55,9 +58,9 @@ const darkTheme = createTheme({
   },
 });
 
-type LayoutProps = {
-  children: ReactNode;
-};
+// type LayoutProps = {
+//   children: ReactNode;
+// };
 
 export const Layout = () => {
   /**
@@ -78,7 +81,18 @@ export const Layout = () => {
           <MiniDrawer>
             <MainBar />
             <Outlet />
+            <BottomDrawer />
             <FabBtn />
+            <ToastContainer
+              position="bottom-left"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              // pauseOnFocusLoss
+              draggable
+              theme="dark"
+            />
           </MiniDrawer>
         </ThemeProvider>
       </StyledEngineProvider>

@@ -39,8 +39,18 @@ type Task = {
   completed: boolean;
   priority: PriorityItem;
   notes?: Note[];
+  pomodoros?: Pomodoro[];
   createdAt?: Date;
   updatedAt?: Date;
+};
+
+type Pomodoro = {
+  id?: string;
+  taskId?: string;
+  totalSessions?: number;
+  doneSessions?: number;
+  isActive?: boolean;
+  ongoingSession?: boolean;
 };
 
 type PriorityItem = {

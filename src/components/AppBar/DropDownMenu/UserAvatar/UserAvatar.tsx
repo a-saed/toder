@@ -8,7 +8,9 @@ export const UserAvatar = memo(() => {
     <div>
       <img
         className={styles.avatar}
-        src={`https://robohash.org/${Math.floor(Math.random() * 100000)}`}
+        src={`https://robohash.org/${Math.floor(
+          Math.random() * 100000
+        )}?set=set${Math.floor(Math.random() * 4) + 1}`}
       ></img>
       <ArrowDropDownIcon sx={{ color: "#777", ml: -0.7 }} />
     </div>

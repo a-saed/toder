@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, TextField } from "@mui/material";
 import styles from "@/styles/TaskDetails.module.css";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { updateTask } from "@/services/db.service";
+import { handleKeyDown } from "@/utils/forms.utils";
 
 interface SubTaskEditFormProps {
   subtask: SubTask;
@@ -35,6 +36,14 @@ const SubTaskEditForm = ({
     }
   };
 
+  // const handleKeyDown = (event: KeyboardEvent<HTMLFormElement>) => {
+  //   if (!currSubTaskName.trim()) return;
+  //   if (event.key === "Enter") {
+  //     event.preventDefault();
+  //     handleUpdateSubTask();
+  //   }
+  // };
+
   return (
     <Box
       component="form"
@@ -47,6 +56,12 @@ const SubTaskEditForm = ({
       }}
       noValidate
       autoComplete="off"
+      onKeyDown={(e) =>
+        handleKeyDown(e, () => {
+          if (!currSubTaskName.trim()) return;
+          handleUpdateSubTask();
+        })
+      }
     >
       <TextField
         id="task-name"

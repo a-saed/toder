@@ -3,39 +3,47 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-// import { randomUUID } from "crypto";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { addNote } from "@/services/db.service";
-import { useTaskStore } from "@/store/task.store";
+import useCloseOnEscape from "@/hooks/useCloseOnEscape";
+import { handleKeyDown } from "@/utils/forms.utils";
 
-export const NotesPanel = () => {
-  const [showNoteForm, setShowNoteForm] = useState(false);
+export const AddNoteForm = ({
+  selectedTask,
+}: {
+  selectedTask: Task | null;
+}) => {
   const [note, setNote] = useState("");
-  const { selectedTask } = useTaskStore();
+  const [showNoteForm, setShowNoteForm] = useState(false);
+
+  const handleCancel = () => {
+    setNote("");
+    setShowNoteForm(false);
+  };
+
+  // Close the add form on clicking Esc key
+  useCloseOnEscape(showNoteForm, handleCancel);
 
   const handleAddNote = async () => {
     const { ok } = await addNote(selectedTask?._id as string, {
       id: Date.now().toLocaleString(),
       text: note,
     });
-    console.log({ selectedTask });
 
     if (ok) {
-      console.log({ ok });
+      setNote("");
     }
-
-    // if (ok) console.log({ ok });
   };
 
-  console.log({ selectedTask });
-
   return (
-    <Box sx={{ ml: 6, mt: 0.5 }}>
+    <Box sx={{ width: "85%", m: "0 auto" }}>
       {!showNoteForm ? (
         <Button
-          variant="outlined"
+          variant="text"
           size="small"
+          startIcon={<AddCircleIcon />}
           color="secondary"
-          sx={{ borderRadius: "20px", p: "2px 20px" }}
+          sx={{ textTransform: "none" }}
           onClick={() => setShowNoteForm(true)}
         >
           Add Note
@@ -52,15 +60,21 @@ export const NotesPanel = () => {
             component="form"
             sx={{
               "& > :not(style)": { width: "100%" },
-              width: "100%",
+              width: "85%",
             }}
             noValidate
             autoComplete="off"
+            onKeyDown={(e) =>
+              handleKeyDown(e, () => {
+                if (!note.trim()) return;
+                handleAddNote();
+              })
+            }
           >
             <TextField
               id="note"
               size="small"
-              placeholder="Note"
+              placeholder="Note..."
               fullWidth
               variant="standard"
               multiline
@@ -91,7 +105,7 @@ export const NotesPanel = () => {
               variant="text"
               color="warning"
               sx={{ textTransform: "none" }}
-              onClick={() => setShowNoteForm(false)}
+              onClick={handleCancel}
             >
               Cancel
             </Button>
@@ -107,12 +121,6 @@ export const NotesPanel = () => {
           </Stack>
         </div>
       )}
-
-      <Box sx={{ mt: 5 }}>
-        {selectedTask?.notes?.map((note) => {
-          return <div key={note.id}>{note.text}</div>;
-        })}
-      </Box>
     </Box>
   );
 };

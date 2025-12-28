@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import styles from "@/styles/TaskDetails.module.css";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import { updateTask } from "@/services/db.service";
+import useCloseOnEscape from "@/hooks/useCloseOnEscape";
+import { handleKeyDown } from "@/utils/forms.utils";
+import TaskDetailsActions from "./TaskDetailsActions";
 
 const TaskDetailsMainContent = ({ task }: { task: Task }) => {
   const [currTaskName, setCurrTaskName] = useState(task.name);
@@ -16,22 +19,7 @@ const TaskDetailsMainContent = ({ task }: { task: Task }) => {
     setCurrTaskDesc(task.description);
     setEditMode(false);
   };
-
-  useEffect(() => {
-    handleCancel();
-  }, [task]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && editMode) {
-        handleCancel();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [editMode]);
+  useCloseOnEscape(editMode, handleCancel);
 
   const editTask = async () => {
     task.name = currTaskName;
@@ -86,6 +74,12 @@ const TaskDetailsMainContent = ({ task }: { task: Task }) => {
           }}
           noValidate
           autoComplete="off"
+          onKeyDown={(e) =>
+            handleKeyDown(e, () => {
+              if (!currTaskName.trim()) return;
+              editTask();
+            })
+          }
         >
           <TextField
             id="task-name"
@@ -177,6 +171,7 @@ const TaskDetailsMainContent = ({ task }: { task: Task }) => {
           </Typography>
         </div>
       )}
+      <TaskDetailsActions task={task} enableEdit={() => setEditMode(true)} />
     </div>
   );
 };

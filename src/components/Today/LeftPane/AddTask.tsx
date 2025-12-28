@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import styles from "@/styles/LeftPane.module.css";
 import { AddTaskForm } from "@/components/shared/AddTaskForm";
+import useCloseOnEscape from "@/hooks/useCloseOnEscape";
 
 interface AddTaskProps {
   isSubTask: boolean;
@@ -13,19 +14,7 @@ const AddTask = ({ isSubTask, parentTask }: AddTaskProps) => {
   const [showAddTaskForm, setShowAddTaskForm] = useState(false);
 
   // close the add task form when clicking Esc key
-  useEffect(() => {
-    const handleEscapeKeyClosing = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setShowAddTaskForm(false);
-      }
-    };
-    if (showAddTaskForm) {
-      document.addEventListener("keydown", handleEscapeKeyClosing);
-    }
-    return () => {
-      document.removeEventListener("keydown", handleEscapeKeyClosing);
-    };
-  }, [showAddTaskForm]);
+  useCloseOnEscape(showAddTaskForm, () => setShowAddTaskForm(false));
 
   return (
     <div className={styles.add_task_root}>

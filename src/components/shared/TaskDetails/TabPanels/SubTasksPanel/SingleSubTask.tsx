@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Checkbox, Typography } from "@mui/material";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -7,6 +7,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SubTaskEditForm from "./SubTaskEditForm";
 import styles from "@/styles/TaskDetails.module.css";
 import { updateTask } from "@/services/db.service";
+import useCloseOnEscape from "@/hooks/useCloseOnEscape";
+import { Box } from "@mui/system";
 
 interface SingleSubTaskProps {
   subTask: SubTask;
@@ -56,17 +58,7 @@ const SingleSubTask = ({
     }
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && editMode) {
-        handleCancel();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [editMode]);
+  useCloseOnEscape(editMode, handleCancel);
 
   return (
     <div>
@@ -76,6 +68,7 @@ const SingleSubTask = ({
           alignItems: "center",
           alignContent: "center",
           marginTop: "15px",
+          position: "relative",
         }}
       >
         <Checkbox
@@ -111,7 +104,7 @@ const SingleSubTask = ({
             onMouseEnter={() => setShowSubTaskControls(true)}
             onMouseLeave={() => setShowSubTaskControls(false)}
           >
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "90%", wordBreak: "break-all" }}>
               <Typography
                 className={`${isCompleted ? styles.completed : null}`}
                 onClick={() => setEditMode(true)}
@@ -129,7 +122,14 @@ const SingleSubTask = ({
               </Typography>
             </div>
             {showSubTaskControls ? (
-              <div>
+              <Box
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                }}
+              >
                 <span role="button" onClick={() => deleteSubTask(subTask._id)}>
                   <DeleteIcon
                     sx={{
@@ -140,7 +140,7 @@ const SingleSubTask = ({
                     }}
                   />
                 </span>
-              </div>
+              </Box>
             ) : null}
           </div>
         )}

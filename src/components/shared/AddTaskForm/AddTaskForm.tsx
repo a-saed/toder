@@ -8,6 +8,7 @@ import { DueDateSelector, PrioritySelector } from "@/components/Selectors";
 import dayjs, { Dayjs } from "dayjs";
 import { proiorities } from "@/data/constants";
 import { generateUniqueId } from "@/utils/general.util";
+import { handleKeyDown } from "@/utils/forms.utils";
 
 interface AddTaskFormProps {
   setShowAddTaskForm?: (v: boolean) => void;
@@ -34,7 +35,7 @@ export const AddTaskForm = ({
 
   const createTask = async () => {
     const { ok } = await addTask({
-      _id: new Date().toISOString(),
+      _id: generateUniqueId(),
       name: taskName,
       description: taskDesc,
       isSubTask: false,
@@ -79,6 +80,12 @@ export const AddTaskForm = ({
         }}
         noValidate
         autoComplete="off"
+        onKeyDown={(e) =>
+          handleKeyDown(e, () => {
+            if (!taskName.trim()) return;
+            isSubTask ? createSubTask() : createTask();
+          })
+        }
       >
         <TextField
           id="task-name"

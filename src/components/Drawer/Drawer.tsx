@@ -34,7 +34,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   backgroundColor: "#282828",
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
+const DrawerHeader = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
